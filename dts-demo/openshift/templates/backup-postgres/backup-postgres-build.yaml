@@ -52,7 +52,7 @@ parameters:
     displayName: Git Reference
     description: The git reference or branch.
     required: true
-    value: master
+    value: "2.5.1"
   - name: SOURCE_CONTEXT_DIR
     displayName: Source Context Directory
     description: The source context directory.
@@ -72,4 +72,4 @@ parameters:
     displayName: FROM Image Tag
     description: Base image to build from.  Docker creds or Artificatory setup may be needed to alleviate docker rate-limiting
     required: true
-    value: artifacts.developer.gov.bc.ca/docker-remote/centos/postgresql-12-centos7:20200917-804ef01
+    value: artifacts.developer.gov.bc.ca/docker-remote/centos/postgresql-13-centos7:20210722-70dc4d3
