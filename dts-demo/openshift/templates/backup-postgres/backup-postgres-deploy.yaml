@@ -97,10 +97,7 @@ objects:
         description: Defines how to deploy the application server
         app.openshift.io/connects-to: >-
           [
-            {"apiVersion":"apps.openshift.io/v1","kind":"DeploymentConfig","name":"${IDENTITY_KIT_WALLET_SERVICE}"},
-            {"apiVersion":"apps.openshift.io/v1","kind":"DeploymentConfig","name":"${ISSUER_KIT_WALLET_SERVICE}"},
-            {"apiVersion":"apps.openshift.io/v1","kind":"DeploymentConfig","name":"${IIW_BOOK_WALLET_SERVICE}"},
-            {"apiVersion":"apps.openshift.io/v1","kind":"DeploymentConfig","name":"${EMAIL_VERIFICATION_WALLET_SERVICE}"}
+            {"apiVersion":"apps.openshift.io/v1","kind":"DeploymentConfig","name":"${ISSUER_KIT_WALLET_SERVICE}"}
           ]
     spec:
       strategy:
@@ -167,16 +164,6 @@ objects:
                   value: ${DATABASE_NAME}
                 - name: TABLE_SCHEMA
                   value: ${TABLE_SCHEMA}
-                - name: IDENTITY_KIT_WALLET_BC_USER
-                  valueFrom:
-                    secretKeyRef:
-                      name: ${IDENTITY_KIT_WALLET_SERVICE}
-                      key: ${DATABASE_USER_KEY_NAME}
-                - name: IDENTITY_KIT_WALLET_BC_PASSWORD
-                  valueFrom:
-                    secretKeyRef:
-                      name: ${IDENTITY_KIT_WALLET_SERVICE}
-                      key: ${DATABASE_PASSWORD_KEY_NAME}
                 - name: ISSUER_KIT_WALLET_USER
                   valueFrom:
                     secretKeyRef:
@@ -186,26 +173,6 @@ objects:
                   valueFrom:
                     secretKeyRef:
                       name: ${ISSUER_KIT_WALLET_SERVICE}
-                      key: ${DATABASE_PASSWORD_KEY_NAME}
-                - name: IIW_BOOK_DB_USER
-                  valueFrom:
-                    secretKeyRef:
-                      name: ${IIW_BOOK_WALLET_SERVICE}
-                      key: ${DATABASE_USER_KEY_NAME}
-                - name: IIW_BOOK_DB_PASSWORD
-                  valueFrom:
-                    secretKeyRef:
-                      name: ${IIW_BOOK_WALLET_SERVICE}
-                      key: ${DATABASE_PASSWORD_KEY_NAME}
-                - name: EMAIL_VERIFICATION_SERVICE_DB_USER
-                  valueFrom:
-                    secretKeyRef:
-                      name: ${EMAIL_VERIFICATION_WALLET_SERVICE}
-                      key: ${DATABASE_USER_KEY_NAME}
-                - name: EMAIL_VERIFICATION_SERVICE_DB_PASSWORD
-                  valueFrom:
-                    secretKeyRef:
-                      name: ${EMAIL_VERIFICATION_WALLET_SERVICE}
                       key: ${DATABASE_PASSWORD_KEY_NAME}
                 - name: WEBHOOK_URL
                   valueFrom:
@@ -283,26 +250,11 @@ parameters:
     description: Used for backward compatibility only. Not needed when using the recommended 'backup.conf' configuration.  The name of the database.
     required: false
     value: ""
-  - name: IDENTITY_KIT_WALLET_SERVICE
-    displayName: Database Deployment Name
-    description: The name associated to the database deployment resources.  In particular, this is used to wire up the credentials associated to the database.
-    required: true
-    value: identity-kit-wallet-bc
   - name: ISSUER_KIT_WALLET_SERVICE
     displayName: Database Deployment Name
     description: The name associated to the database deployment resources.  In particular, this is used to wire up the credentials associated to the database.
     required: true
     value: issuer-kit-wallet
-  - name: IIW_BOOK_WALLET_SERVICE
-    displayName: Database Deployment Name
-    description: The name associated to the database deployment resources.  In particular, this is used to wire up the credentials associated to the database.
-    required: true
-    value: iiw-book-db
-  - name: EMAIL_VERIFICATION_WALLET_SERVICE
-    displayName: Database Deployment Name
-    description: The name associated to the database deployment resources.  In particular, this is used to wire up the credentials associated to the database.
-    required: true
-    value: email-verification-service-db
   - name: DATABASE_USER_KEY_NAME
     displayName: Database User Key Name
     description: The database user key name stored in database deployment resources specified by IDENTITY_KIT_WALLET_SERVICE.

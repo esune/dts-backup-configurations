@@ -97,7 +97,7 @@ objects:
       annotations:
         description: Defines how to deploy the application server
         app.openshift.io/connects-to: >-
-          [{"apiVersion":"apps.openshift.io/v1","kind":"DeploymentConfig","name":"${IDENTITY_KIT_DB_SERVICE}"}]
+          [{"apiVersion":"apps.openshift.io/v1","kind":"DeploymentConfig","name":"${ISSUER_KIT_DB_SERVICE}"}]
     spec:
       strategy:
         type: Recreate
@@ -159,15 +159,15 @@ objects:
                   value: ${BACKUP_PERIOD}
                 - name: MONGODB_AUTHENTICATION_DATABASE
                   value: ${MONGODB_AUTHENTICATION_DATABASE}
-                - name: IDENTITY_KIT_DB_BC_USER
+                - name: ISSUER_KIT_DB_USER
                   valueFrom:
                     secretKeyRef:
-                      name: ${IDENTITY_KIT_DB_SERVICE}
+                      name: ${ISSUER_KIT_DB_SERVICE}
                       key: ${DATABASE_USER_KEY_NAME}
-                - name: IDENTITY_KIT_DB_BC_PASSWORD
+                - name: ISSUER_KIT_DB_PASSWORD
                   valueFrom:
                     secretKeyRef:
-                      name: ${IDENTITY_KIT_DB_SERVICE}
+                      name: ${ISSUER_KIT_DB_SERVICE}
                       key: ${DATABASE_PASSWORD_KEY_NAME}
                 - name: WEBHOOK_URL
                   valueFrom:
@@ -239,22 +239,22 @@ parameters:
     displayName: MongoDB Authentication Database
     description: This is only required if you are backing up mongo database with a separate authentication database.
     required: false
-    value: "identity_kit_db"
-  - name: IDENTITY_KIT_DB_SERVICE
+    value: "issuer_db"
+  - name: ISSUER_KIT_DB_SERVICE
     displayName: Database Deployment Name
     description: The name associated to the database deployment resources.  In particular, this is used to wire up the credentials associated to the database.
     required: true
-    value: identity-kit-db-bc
+    value: issuer-kit-db
   - name: DATABASE_USER_KEY_NAME
     displayName: Database User Key Name
-    description: The database user key name stored in database deployment resources specified by IDENTITY_KIT_DB_SERVICE.
+    description: The database user key name stored in database deployment resources specified by ISSUER_KIT_DB_SERVICE.
     required: true
     value: database-user
   - name: DATABASE_PASSWORD_KEY_NAME
     displayName: Database Password Key Name
-    description: The database password key name stored in database deployment resources specified by IDENTITY_KIT_DB_SERVICE.
+    description: The database password key name stored in database deployment resources specified by ISSUER_KIT_DB_SERVICE.
     required: true
-    value: database-password
+    value: admin-password
   - name: BACKUP_STRATEGY
     displayName: Backup Strategy
     description: The strategy to use for backups; for example daily, or rolling.
