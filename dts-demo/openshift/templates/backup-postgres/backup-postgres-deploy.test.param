@@ -11,10 +11,7 @@
 TAG_NAME=test
 # ROLE=backup-container
 # SVC_PORT=5432
-# IDENTITY_KIT_WALLET_SERVICE=identity-kit-wallet-bc
 # ISSUER_KIT_WALLET_SERVICE=issuer-kit-wallet
-# IIW_BOOK_WALLET_SERVICE=iiw-book-db
-# EMAIL_VERIFICATION_WALLET_SERVICE=email-verification-service-db
 # DATABASE_USER_KEY_NAME=database-user
 # DATABASE_PASSWORD_KEY_NAME=database-password
 # TABLE_SCHEMA=public
