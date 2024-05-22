@@ -11,8 +11,8 @@
 TAG_NAME=test
 # ROLE=backup-container
 # SVC_PORT=27017
-# MONGODB_AUTHENTICATION_DATABASE=identity_kit_db
-# IDENTITY_KIT_DB_SERVICE=identity-kit-db-bc
+# MONGODB_AUTHENTICATION_DATABASE=issuer_db
+# ISSUER_KIT_DB_SERVICE=issuer-kit-db
 # DATABASE_USER_KEY_NAME=database-user
 # DATABASE_PASSWORD_KEY_NAME=database-password
 # BACKUP_STRATEGY=rolling
