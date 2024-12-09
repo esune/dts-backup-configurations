@@ -1,0 +1,17 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# Template File: ../openshift/templates/backup/backup-build.yaml
+#=========================================================
+NAME=backup-postgresql
+APP_NAME=backup-container
+APP_GROUP=backup-postgresql
+GIT_REPO_URL=https://github.com/BCDevOps/backup-container.git
+GIT_REF=2.6.0
+SOURCE_CONTEXT_DIR=/docker
+SOURCE_IMAGE_KIND=DockerImage
+SOURCE_IMAGE_REGISTRY=quay.io/
+SOURCE_IMAGE_NAME=fedora/postgresql-14
+SOURCE_IMAGE_TAG=14
+DOCKER_FILE_PATH=Dockerfile
+OUTPUT_IMAGE_TAG=latest
