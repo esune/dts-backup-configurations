@@ -8,6 +8,7 @@
 # APP_NAME=backup-container
 # APP_GROUP=backup-postgres
 # SOURCE_IMAGE_NAME=backup-postgres
+# NAMESPACE_NAME=4a9599
 # IMAGE_NAMESPACE=4a9599-tools
 TAG_NAME=dev
 # MEDIATOR_WALLET_DB_HOST=aries-mediator-db
@@ -28,7 +29,7 @@ ENVIRONMENT_NAME=4a9599-dev
 # MONTHLY_BACKUPS=0
 # DATABASE_SERVER_TIMEOUT=300
 # CONFIG_FILE_NAME=backup.conf
-# CONFIG_MAP_NAME=backup-conf
+# CONFIG_MAP_NAME=backup-postgres-conf
 # CONFIG_MOUNT_PATH=/
 # BACKUP_VOLUME_NAME=backup-postgres
 BACKUP_VOLUME_SIZE=5Gi

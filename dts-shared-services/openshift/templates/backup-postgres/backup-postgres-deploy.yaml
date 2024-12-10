@@ -246,6 +246,11 @@ parameters:
     description: The name of the image to use for this resource.
     required: true
     value: backup-postgres
+  - name: NAMESPACE_NAME
+    displayName: NameSpace name
+    description: Name of the project namespace
+    required: true
+    value: 4a9599
   - name: IMAGE_NAMESPACE
     displayName: Image Namespace
     description: The namespace of the OpenShift project containing the imagestream for the application.
@@ -355,7 +360,7 @@ parameters:
     displayName: Config Map Name
     description: The name of the configuration map.
     required: true
-    value: backup-conf
+    value: backup-postgres
   - name: CONFIG_MOUNT_PATH
     displayName: Config Mount Path
     description: The path to use to mount the config file.
