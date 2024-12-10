@@ -152,16 +152,40 @@ objects:
                   value: ${WEEKLY_BACKUPS}
                 - name: MONTHLY_BACKUPS
                   value: ${MONTHLY_BACKUPS}
+
                 - name: ARIES_MEDIATOR_DB_USER
                   valueFrom:
                     secretKeyRef:
                       name: ${MEDIATOR_WALLET_DB_HOST}
-                      key: ${MEDIATOR_DATABASE_USER_KEY_NAME}
+                      key: ${DATABASE_USER_KEY_NAME}
                 - name: ARIES_MEDIATOR_DB_PASSWORD
                   valueFrom:
                     secretKeyRef:
                       name: ${MEDIATOR_WALLET_DB_HOST}
-                      key: ${MEDIATOR_DATABASE_PASSWORD_KEY_NAME}
+                      key: ${DATABASE_PASSWORD_KEY_NAME}
+
+                - name: ARIES_ENDORSER_DB_USER
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${ARIES_ENDORSER_DB_HOST}
+                      key: ${DATABASE_USER_KEY_NAME}
+                - name: ARIES_ENDORSER_DB_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${ARIES_ENDORSER_DB_HOST}
+                      key: ${DATABASE_PASSWORD_KEY_NAME}
+
+                - name: ARIES_ENDORSER_WALLET_USER
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${ARIES_ENDORSER_WALLET_HOST}
+                      key: ${DATABASE_USER_KEY_NAME}
+                - name: ARIES_ENDORSER_WALLET_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${ARIES_ENDORSER_WALLET_HOST}
+                      key: ${DATABASE_PASSWORD_KEY_NAME}
+
                 - name: TDW_SERVER_POSTGRESQL_DB_USER
                   value: ${TDW_SERVER_USER}
                 - name: TDW_SERVER_POSTGRESQL_DB_PASSWORD
@@ -169,6 +193,7 @@ objects:
                     secretKeyRef:
                       name: ${TDW_SERVER_DB_HOST}
                       key: ${TDW_SERVER_PASSWORD_KEY_NAME}
+
                 - name: WEBHOOK_URL
                   valueFrom:
                     secretKeyRef:
@@ -200,7 +225,7 @@ parameters:
     displayName: Name
     description: The name assigned to all of the resources defined in this template.
     required: true
-    value:  backup-postgresql
+    value:  backup-postgres
   - name: ROLE
     displayName: Role
     description: Role
@@ -215,12 +240,12 @@ parameters:
     displayName: App Group
     description: The name assigned to all of the deployments in this project.
     required: true
-    value: backup-postgresql
+    value: backup-postgres
   - name: SOURCE_IMAGE_NAME
     displayName: Source Image Name
     description: The name of the image to use for this resource.
     required: true
-    value: backup-postgresql
+    value: backup-postgres
   - name: IMAGE_NAMESPACE
     displayName: Image Namespace
     description: The namespace of the OpenShift project containing the imagestream for the application.
@@ -231,21 +256,35 @@ parameters:
     description: The TAG name for this environment, e.g., dev, test, prod
     required: true
     value: dev
+
   - name: MEDIATOR_WALLET_DB_HOST
     displayName: Mediator Wallet Database Hostname
     description: The name associated to the wallet database deployment resources.  In particular, this is used to wire up the credentials associated to the database.
     required: true
     value: aries-mediator-db
-  - name: MEDIATOR_DATABASE_USER_KEY_NAME
+
+  - name: ARIES_ENDORSER_DB_HOST
+    displayName: Aries Endorser Database Hostname
+    description: The name associated to the aries endorser database resources.  In particular, this is used to wire up the credentials associated to the database.
+    required: true
+    value: aries-endorser-db
+  - name: ARIES_ENDORSER_WALLET_HOST
+    displayName: Aries Endorser Wallet Database Hostname
+    description: The name associated to the aries endorser wallet database resources.  In particular, this is used to wire up the credentials associated to the database.
+    required: true
+    value: aries-endorser-wallet
+
+  - name: DATABASE_USER_KEY_NAME
     displayName: Database User Key Name
     description: The database user key name stored in database deployment resources specified by DATABASE_DEPLOYMENT_NAME.
     required: true
     value: database-user
-  - name: MEDIATOR_DATABASE_PASSWORD_KEY_NAME
+  - name: DATABASE_PASSWORD_KEY_NAME
     displayName: Database Password Key Name
     description: The database password key name stored in database deployment resources specified by DATABASE_DEPLOYMENT_NAME.
     required: true
     value: database-password
+
   - name: TDW_SERVER_DB_HOST
     displayName: Registry Database Hostname
     description: The name associated to the registry database deployment resources.  In particular, this is used to wire up the credentials associated to the database.
@@ -261,6 +300,7 @@ parameters:
     description: The database password key name stored in database deployment resources specified by DATABASE_DEPLOYMENT_NAME.
     required: true
     value: password
+
   - name: BACKUP_STRATEGY
     displayName: Backup Strategy
     description: The strategy to use for backups; for example daily, or rolling.
@@ -325,7 +365,7 @@ parameters:
     displayName: Backup Volume Name
     description: The name of the persistent volume used to store the backups.
     required: true
-    value: backup-postgresql
+    value: backup-postgres
   - name: BACKUP_VOLUME_SIZE
     displayName: Backup Volume Size
     description: The size of the persistent volume used to store the backups, e.g. 512Mi, 1Gi, 2Gi.  Ensure this is sized correctly.  Refer to the container documentation for details.
@@ -340,7 +380,7 @@ parameters:
     displayName: Verification Volume Name
     description: The name for the verification volume, used for restoring and verifying backups.  When using the recommend netapp-file-backup storage class for backups, this volume MUST be one of netapp-file-standard, or netapp-block-standard storage; netapp-block-standard is recommended for LARGE databases (as they have far better performance).
     required: false
-    value: backup-postgresql-verification
+    value: backup-postgres-verification
   - name: VERIFICATION_VOLUME_SIZE
     displayName: Backup Volume Size
     description: The size of the persistent volume used for restoring and verifying backups, e.g. 512Mi, 1Gi, 2Gi.  Ensure this is sized correctly.  It should be large enough to contain your largest database.
