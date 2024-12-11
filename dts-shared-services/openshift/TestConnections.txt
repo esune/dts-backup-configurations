@@ -1,0 +1,8 @@
+# Uses the 'testConnection' script from https://github.com/BCDevOps/openshift-developer-tools
+# Example:
+# echo -e "backup-postgres\n" | xargs -I {} testConnection -n 4a9599-dev -f TestConnections.txt -p {}
+
+aries-mediator-db:5432
+tdw-server-postgresql:5432
+aries-endorser-wallet:5432
+aries-endorser-db:5432
