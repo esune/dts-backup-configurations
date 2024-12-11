@@ -26,6 +26,9 @@ objects:
                 matchLabels:
                   name: ${NAMESPACE_NAME}
                   environment: ${TAG_NAME}
+          ports:
+            - protocol: TCP
+              port: 5432
       podSelector:
         matchLabels:
           backup: "true"
@@ -186,9 +189,9 @@ objects:
                       name: ${ARIES_ENDORSER_WALLET_HOST}
                       key: ${DATABASE_PASSWORD_KEY_NAME}
 
-                - name: TDW_SERVER_POSTGRESQL_DB_USER
+                - name: TDW_SERVER_POSTGRESQL_USER
                   value: ${TDW_SERVER_USER}
-                - name: TDW_SERVER_POSTGRESQL_DB_PASSWORD
+                - name: TDW_SERVER_POSTGRESQL_PASSWORD
                   valueFrom:
                     secretKeyRef:
                       name: ${TDW_SERVER_DB_HOST}
